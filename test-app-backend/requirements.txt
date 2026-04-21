@@ -1,2 +1,7 @@
 flask
 gunicorn
+sqlalchemy
+python-dotenv
+alembic
+psycopg2-binary
+flask-jwt-extended

@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15
+    container_name: test-app-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   test-app-backend:
     build: 
       context: ./test-app-backend
@@ -10,5 +22,10 @@ services:
     ports: 
       - "8000:8000"
     volumes:
-     - ./test-app-backend:/app
-    command: gunicorn --bind 0.0.0.0:8000 app:app --reload
+      - ./test-app-backend:/app
+    depends_on:
+      - db
+    command: gunicorn --bind 0.0.0.0:8000 --workers 2 --access-logfile - --error-logfile - app:app --reload
+
+volumes:
+  pgdata:

@@ -1,0 +1,10 @@
+// Parse JSON response
+let response = pm.response.json();
+
+// Set access_token to environment variable
+if (response.access_token) {
+    pm.environment.set("access_token", response.access_token);
+    console.log("Access token saved:", response.access_token);
+} else {
+    console.log("access_token not found in response");
+}
