@@ -37,6 +37,8 @@ services:
       dockerfile: Dockerfile
     image: test-app-frontend:latest
     container_name: test-app-frontend
+    volumes: 
+      - ./test-app-frontend:/app
     ports:
       - "3000:80"
     depends_on:
