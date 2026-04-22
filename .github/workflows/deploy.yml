@@ -28,12 +28,14 @@ jobs:
         - name: deploy backend to ec2
           uses: appleboy/ssh-action@v1.0.3 
           with:
-            host: ${{secrets.Ec2_HOST}}
-            username: ${{secrets.Ec2_USER}}
-            key: ${{secrets.Ec2_SSH_KEY}}
+            host: ${{secrets.EC2_HOST}}
+            username: ${{secrets.EC2_USER}}
+            key: ${{secrets.EC2_SSH_KEY}}
             script: |
+              echo "logging in to docker hub..."
               sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
+              echo "pulling image..."
               sudo docker pull ${{secrets.DOCKER_USERNAME}}/test-app-backend:latest
 
               sudo docker container stop test-app-backend || true 
