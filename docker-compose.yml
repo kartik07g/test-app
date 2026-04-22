@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - test-network
 
   test-app-backend:
     build: 
@@ -26,6 +28,25 @@ services:
     depends_on:
       - db
     command: gunicorn --bind 0.0.0.0:8000 --workers 2 --access-logfile - --error-logfile - app:app --reload
+    networks:
+      - test-network
+
+  test-app-frontend:
+    build:
+      context: ./test-app-frontend
+      dockerfile: Dockerfile
+    image: test-app-frontend:latest
+    container_name: test-app-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - test-app-backend
+    networks:
+      - test-network
 
 volumes:
   pgdata:
+
+networks:
+  test-network:
+    driver: bridge
