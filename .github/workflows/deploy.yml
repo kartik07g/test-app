@@ -28,8 +28,8 @@ jobs:
         - name: deploy backend to ec2
           uses: appleboy/ssh-sction@v1.0.5
           with:
-            host: ${{secretss.Ec2_HOST}}
-            username: ${{secretss.Ec2_USER}}
+            host: ${{secrets.Ec2_HOST}}
+            username: ${{secrets.Ec2_USER}}
             key: ${{secrets.Ec2_SSH_KEY}}
             script: |
               sudo docker pull ${{secrets.DOCKER_USERNAME}}/test-app-backend:latest
