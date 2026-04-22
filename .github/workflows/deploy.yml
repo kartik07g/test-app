@@ -33,10 +33,10 @@ jobs:
             key: ${{secrets.Ec2_SSH_KEY}}
             script: |
               sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-              
+
               sudo docker pull ${{secrets.DOCKER_USERNAME}}/test-app-backend:latest
 
-              sudo docker container stop test-app-backend || true
+              sudo docker container stop test-app-backend || true 
 
               sudo docker container rm test-app-backend || true
 
