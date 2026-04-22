@@ -26,7 +26,7 @@ jobs:
             tags: ${{secrets.DOCKER_USERNAME}}/test-app-backend:latest
 
         - name: deploy backend to ec2
-          uses: appleboy/ssh-action@v1.0.5
+          uses: appleboy/ssh-action@v1.0.3
           with:
             host: ${{secrets.Ec2_HOST}}
             username: ${{secrets.Ec2_USER}}
